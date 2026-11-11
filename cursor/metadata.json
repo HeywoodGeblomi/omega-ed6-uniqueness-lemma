@@ -1,0 +1,14 @@
+{
+  "agent_id": "bc-0287fe9d-bd12-5612-a650-fb13f5f1b0ec",
+  "agent_url": "https://cursor.com/agents/bc-0287fe9d-bd12-5612-a650-fb13f5f1b0ec",
+  "title": "Uniqueness lemma, not a measurement",
+  "source_repo_private": "HeywoodGeblomi/omega-ed6-h1plus-measure",
+  "source_sha": "7b7447be237146a6be1dfac4ccca08a364a1d0a0",
+  "source_branch": "cursor/lean-periodic-spectrum-cert-20bd",
+  "completed_at": "2026-11-11T16:36:16Z",
+  "completed_at_note": "UTC timestamp from the pull request update when the uniqueness-lemma head landed",
+  "lead_theorem": "unique_scaled_pair",
+  "build": "cd lean && lake build",
+  "promote_ready": false,
+  "is_measurement": false
+}

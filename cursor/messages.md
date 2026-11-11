@@ -1,0 +1,68 @@
+## user
+
+Improve this private repository so the project's real claim is highlighted and significantly advanced as a uniqueness lemma, not a measurement.
+
+Context (verify in the tree; treat as background, not a script of edits):
+- Start from this branch, which already contains open PR #2's Lean 4 certificate: lean/PeriodicRawSpectrum.lean, lean/README.md, and a pinned Lean 4.35.0 toolchain. That file already proves, from the stored periodic raw spectrum [1, 1/2, -1/2, -1], that the positive parts are in exact ratio 2 and that scaling them to sum to 6/7 yields 4/7 and 2/7. It uses core Rat only, no Mathlib, no sorry. It correctly refuses to treat this as a Lyapunov exponent, Kontsevich–Zorich cocycle, or Masur–Veech average.
+- The current weakness is conceptual: 6/7 is a bare numeral inside scaleFactor, so the file reads like arithmetic on a stored list rather than the actual scientific claim. The real claim is: if the path-local positive parts are in ratio 2:1, and if EKZ supplies λ1+ + λ2+ = 6/7, then the unique scaled pair is 4/7 and 2/7. The closed geodesic supplies the ratio; EKZ supplies the sum; the global measure average on H1+ of ΩED(6) stays open.
+- data/kz_along_A.json stores raw_lyapunov [1.0, 0.5, -0.5, -1.0], truncated floats in normalized_by_log_rho and scaled_to_6_7, ratio 2.0, and promote_ready false. Those decimals (0.6667, 0.3333, 0.5714, 0.2857) are typography for 2/3, 1/3, 4/7, 2/7, not a second identity. A print such as 2.000300 is typography from truncated floats, not a math bug to "fix" by changing the exact ratio. The stored 0.6667/0.3333 match 2/3 and 1/3 (positive parts scaled to sum 1); they do not match raw/log_rho_A. samplers/periodic/run_example.py currently reads the truncated normalized_by_log_rho field and reports it with err=0, which overstates exactness.
+- docs/STATUS.md, docs/CONJECTURE.md, docs/LITERATURE_BASELINE.md, and NON_CLAIMS.md already say the 4/7+2/7 candidate is a conjecture, the global average is open, and promote_ready is false. Thin X(2,0) walks (~1.54–1.66, sometimes compared with 11/21+1/3) are incomplete-generator averages and must not be promoted. Yu–Zuo's Weierstrass exponents 1, 4/7, 2/7, 1/7 on the even component of ΩM4(6) are motivational alignment, not a theorem of this repo.
+- Python smoke already exists on main (RUN.md, scripts/smoke.sh). Do not start long flatsurf or X(2,0) campaigns. Do not invent missing geometry modules. Do not overwrite tracked files under data/. Do not replace generic/skeleton.py with real geometry.
+
+Desired outcome:
+Significantly formalize and highlight the uniqueness lemma as the project's real claim, and make the measurement remain explicitly not claimed.
+
+You should investigate and choose the cleanest formalization, but the result needs to include, in substance:
+1. A named EKZ sum (6/7) as a literature hypothesis, not a magic numeral. The uniqueness theorem should take that hypothesis and a 2:1 positive ratio and conclude the unique scaled pair is 4/7 and 2/7. Keep a path-local instantiation that plugs in the stored spectrum's ratio.
+2. Stronger structural facts about the stored spectrum that support the lemma: it has the shape [λ, μ, -μ, -λ] with λ/μ = 2, and unit-sum normalization of the positive parts is exactly 2/3 and 1/3. Certify that the JSON typography (four-decimal fields) is consistent with those exact rationals; do not treat the truncated floats as the identity itself.
+3. Optionally, a short lemma that 2:1 is not the thin-sampler rational 11/21 : 1/3, so those cannot be confused.
+4. Bind or check the Lean constants against data/kz_along_A.json's raw_lyapunov so the hardcoded list cannot silently drift. Prefer a small checker or documented correspondence; do not rewrite the stored JSON values.
+5. Documentation that leads with the uniqueness lemma and says plainly this is not a measurement of the global average. Update lean/README.md. Prefer a short new note if that is cleaner than rewriting existing claim docs. You may add a careful sentence to STATUS/CONJECTURE/NON_CLAIMS to point at the certified uniqueness lemma, but you must not change their scientific conclusions: the global Masur–Veech average stays open, the 4/7+2/7 candidate stays a conjecture, Yu–Zuo and Möller attributions stay as they are, and promote_ready stays false everywhere (docs, JSON, any new text). Avoid expanding the main repo README unless a single pointer is truly necessary; this repo has been keeping how-to and Lean notes out of the main README.
+6. If you touch the periodic Python example, stop presenting truncated floats as exact with err=0. Do not weaken or invent an interval enclosure. The certificates error model (interval/QR remainder) is still not met and must not be claimed as met.
+
+Hard constraints:
+- promote_ready must remain false in every file that has the field, and in all new prose.
+- Do not claim that global exponents, the Masur–Veech average, that matrix A produces this spectrum, or Yu–Zuo's individual Weierstrass exponents, are proved here.
+- Do not change stored data values under data/.
+- Keep Lean on core Rat if possible, no Mathlib, no sorry. `cd lean && lake build` must succeed.
+- Do not start long-running samplers or overwrite data/.
+- Open a pull request against main with the uniqueness-lemma work (this starting ref already includes the existing Lean certificate). Do not merge it. Do not mark the PR as proving the measure average.
+
+Done when:
+- `cd lean && lake build` exits 0, with no sorry in the Lean sources.
+- The uniqueness lemma is a clearly named theorem (or equivalent) and is the lead claim in the Lean README / any new note.
+- Documentation and code comments make it unambiguous that this is not a measurement.
+- All promote_ready fields are still false; data/ hashes/values are unchanged.
+- A PR is open, and your report gives the PR URL, the theorem names, what you proved, what you deliberately did not prove, and the exact build command and result.
+
+## assistant
+
+I'll start from the existing Lean certificate and the claim docs, then formalize the uniqueness lemma so 6/7 is a named hypothesis rather than a bare numeral.
+
+## user
+
+Please include and focus on the uniqueness lemma and the typography-check changes. Those are the required center of this work, not optional extras.
+
+Focus 1 — uniqueness lemma (the real claim, not a measurement):
+Make a clearly named uniqueness theorem the lead formal result. If the positive parts are in ratio 2:1 and the EKZ sum hypothesis is 6/7, then the unique scaled pair is 4/7 and 2/7. Name 6/7 as a literature hypothesis (EKZ), not a bare numeral. Instantiate it on the stored path-local spectrum, and keep saying this is not a proof of the global measure average.
+
+Focus 2 — typography-check (must be included, not just documented):
+Certify that the four-decimal JSON typography is consistent with the exact rationals, and is not itself the identity. Concretely: prove the stored spectrum has shape [λ, μ, -μ, -λ] with λ/μ = 2; prove unit-sum normalization of the positive parts is exactly 2/3 and 1/3; check that data/kz_along_A.json fields normalized_by_log_rho and scaled_to_6_7 (0.6667, 0.3333, 0.5714, 0.2857) are four-decimal typography for 2/3, 1/3, 4/7, 2/7 (for example by a bound on the truncation error, or an exact decimal-rounding statement). Do not change the stored JSON values, and do not treat a print such as 2.000300 as a math bug in the exact ratio. Bind or check Lean constants against raw_lyapunov so the list cannot drift. If you touch samplers/periodic/run_example.py, stop presenting those truncated floats as exact with err=0.
+
+Still required: no sorry, `cd lean && lake build` succeeds, promote_ready stays false, global average stays unclaimed, open a PR and do not merge it. Lead the Lean README and any new note with the uniqueness lemma, and describe the typography check as certifying typography rather than proving a second identity.
+
+## assistant
+
+The uniqueness lemma and the typography check are the center of the work. I’ll read the certificate and smoke paths next so those two results stay exact and the truncated floats stay typography.
+
+## assistant
+
+The uniqueness argument is in place. Next I’ll finish the absolute-value steps that make the four-decimal typography check a real bound, not a second identity.
+
+## assistant
+
+The uniqueness statement is an if-and-only-if on the EKZ sum, and the four-decimal check will be a half-unit bound with a nearest-numeral lemma. I’ll put that into the Lean file and the notes next.
+
+## assistant
+
+The Lean build is clean and the public theorems use only the standard axioms. Next I’ll write the notes, bind the constants to the JSON, and stop the periodic example from treating truncated floats as exact.

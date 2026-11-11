@@ -1,0 +1,6 @@
+name = "periodicRawSpectrum"
+version = "0.1.0"
+defaultTargets = ["PeriodicRawSpectrum"]
+
+[[lean_lib]]
+name = "PeriodicRawSpectrum"
