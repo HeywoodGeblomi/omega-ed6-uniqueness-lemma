@@ -1,0 +1,4 @@
+'traceDet_holds' does not depend on any axioms
+'cube_holds' does not depend on any axioms
+'eigen_holds' does not depend on any axioms
+exit 0
