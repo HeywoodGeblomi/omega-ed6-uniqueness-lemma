@@ -8,6 +8,8 @@ The lead theorem is `unique_scaled_pair` in [`lean/PeriodicRawSpectrum.lean`](le
 
 Cursor cloud-agent run data for this formalization is in [`cursor/`](cursor/).
 
+Where the 2:1 comes from: [`a_to_ratio/`](a_to_ratio/) derives it in Lean from the stored matrices `A` and `M_plus`, not from the stored exponent numbers. That holds only in a simplified two-torus model. With the other sign choice for the twists, the ratio there is about 1.40.
+
 ## Run
 
 With [elan](https://github.com/leanprover/elan) so the pinned toolchain `leanprover/lean4:v4.35.0` is installed:
@@ -27,7 +29,7 @@ No Mathlib and no `sorry`. Core `Rat` only.
 ## What this does not prove
 
 - The Masur–Veech / Lyapunov measure average. Still open. The \(4/7+2/7\) candidate stays a conjecture.
-- That the stored matrix \(A\) produces this spectrum.
+- That the stored matrix \(A\) produces this spectrum on a real surface. [`a_to_ratio/`](a_to_ratio/) checks it only in the toy model.
 - Yu–Zuo’s individual Weierstrass exponents, or the Möller attribution.
 - An interval or QR remainder bound.
 

@@ -1,0 +1,4 @@
+'AToRatio.toy_model_this_geodesic_exponents_two_to_one' depends on axioms: [propext, Classical.choice, Quot.sound]
+'AToRatio.toy_model_this_geodesic_partners' depends on axioms: [propext]
+'AToRatio.toy_model_top_is_square_of_second' does not depend on any axioms
+'AToRatio.toy_model_no_other_eigenvalues_poly' depends on axioms: [propext, Classical.choice, Quot.sound]
