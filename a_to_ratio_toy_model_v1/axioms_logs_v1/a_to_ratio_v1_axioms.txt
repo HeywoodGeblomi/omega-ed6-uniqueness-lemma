@@ -1,0 +1,5 @@
+'TaterAToRatio.word_gives_A' depends on axioms: [propext]
+'TaterAToRatio.word_gives_Mplus' depends on axioms: [propext]
+'TaterAToRatio.blockDiag_holds' depends on axioms: [propext]
+'TaterAToRatio.chain_holds' depends on axioms: [propext]
+exit 0
